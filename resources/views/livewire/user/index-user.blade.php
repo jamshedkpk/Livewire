@@ -14,10 +14,12 @@ color:#343A40;
 
 <div class="row">
 <div class="col-md-12">
-<button wire:click.prevent="adduser" class="btn btn-success float-right btn-sm">
+
+<button wire:click.prevent="adduser" class="btn btn-primary text-light float-right btn-sm">
 <span class="fa fa-plus-circle"></span> 
 &nbsp;   
 Add New User</button>    
+
 </div>
 </div>
 <!-- End of row-->
@@ -51,7 +53,7 @@ Welcome To The User Section
 {{$user->email}}
 </td>
 <td>
-<a href="#">
+<a href="" wire:click.prevent="edit({{$user}})">
 <span class="fa fa-edit"></span>    
 </a>
 </td>
@@ -85,7 +87,7 @@ Welcome To The User Section
         </button>
       </div>
       <div class="modal-body">
-    <form wire:submit.prevent="addnewuser">
+    <form wire:submit.prevent="{{$showeditform? 'updateuser':'addnewuser'}}">
     <div class="form-group">
     <input wire:model.defer="state.name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Enter Your Name">
     @error('name')
@@ -121,15 +123,23 @@ Welcome To The User Section
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-        <span class="fa fa-times-circle">
+        <span class="fa fa-times-circle mr-2">
         </span>    
-        &nbsp;
         Close</button>
+        @if($showeditform)
         <button type="submit" class="btn btn-primary">
-        <span class="fa fa-plus-circle">
+        <span class="fa fa-edit mr-2">
         </span>    
-        &nbsp;
-        Add User</button>
+        Update User
+        </button>
+        @else
+        <button type="submit" class="btn btn-primary">
+        <span class="fa fa-plus-circle mr-2">
+        </span>    
+        Add User
+        </button>
+        @endif  
+        
       </div>
       </form>
     </div>
@@ -164,6 +174,7 @@ Welcome To The User Section
     </div>
   </div>
 </div>
+
 <script>
 // To display modal for adding new user
 window.addEventListener('adduser',event=>{
@@ -175,13 +186,15 @@ $('#modaluseradd').modal('show');
 // To hide add user model
 window.addEventListener('hideadduser',event=>{
 $('#modaluseradd').modal('hide');
-// To show sweat alert
+// To show sweat alert for success adding user
 Swal.fire({
   position: 'top-center',
   icon: 'success',
-  title: 'User is successfully added',
+  iconColor:'green',
+  title: 'User is successfully Added',
+  timerProgressBar:true,
   showConfirmButton: false,
-  timer: 1000
+  timer: 2000
 });
 });
 </script>
@@ -201,8 +214,35 @@ const Toast = Swal.mixin({
   toast: true,
   position: 'top-center',
   showConfirmButton: false,
-  color:'red',
-  timer: 1000,
+  iconColor:'green',
+  timer: 3000,
+  timerProgressBar: true,
+  progressBarColor:'green',
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'User is successfully Deleted'
+});
+});
+</script>
+
+<script>
+// Show update model and sweat alert in case of success updation
+window.addEventListener('hideupdateuser',event=>{
+  $('#modaluseradd').modal('hide');
+
+  const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-center',
+  showConfirmButton: false,
+  iconColor:'green',
+  customClass:'simple',
+  timer: 2000,
   timerProgressBar: true,
   didOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -212,10 +252,16 @@ const Toast = Swal.mixin({
 
 Toast.fire({
   icon: 'success',
-  title: 'User is successfully deleted'
-})
+  title: 'User is successfully Updated'
+});
+
 });
 </script>
-
+<style>
+.simple
+{
+background-color: red;  
+}
+</style>
 </div>
 <!--End of component-->
