@@ -96,22 +96,22 @@ Welcome To The Appointment Section
 <br>
 <div class="row">
 <div class="col-md-6">
-<button id="saveappointment" type="submit" class="btn btn-success btn-block">
+<button type="submit" class="btn btn-success btn-block">
 <span class="fa fa-plus-circle"></span>
 Book Appoitment
 </button>
 </div>
-<div class="col-md-6">
-<button class="btn btn-success text-white btn-block">
-<span class="fa fa-home"></span>
-Homepage
-</button>
-</div>
 
+<div class="col-md-6">
+<a href="{{route('appointment')}}" class="btn btn-success btn-block">
+<span class="fa fa-home"></span>
+Homepage    
+</a>
+</div>
+</div>
+</div>
 </div>
 </form>
-</div>
-</div>
 
 <script>
 // Appointment added successfully sweat alert box
