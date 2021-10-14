@@ -52,10 +52,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('appointment')}}" class="nav-link {{request()->is('admin/appointment')?'active':''}}">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                Profile
+              Appointments
                </p>
             </a>
           </li>
