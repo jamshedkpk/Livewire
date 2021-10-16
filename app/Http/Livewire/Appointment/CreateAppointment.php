@@ -11,12 +11,12 @@ class CreateAppointment extends Component
     public $state=[];
     public function addappointment()
     {
-    $data=Validator::make($this->state,[
+        $data=Validator::make($this->state,[
         'client_id'=>'required',
         'date'=>'required',
         'time'=>'required',
         'status'=>'required|in:Scheduled,Closed',
-        'note'=>'sometimes',
+        'note'=>'required',
     ])->validate();
     Appointment::create($data);
     $this->dispatchBrowserEvent('appointmentadded');

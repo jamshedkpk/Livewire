@@ -3,6 +3,8 @@ namespace App\Http\Livewire\Appointment;
 use Livewire\Component;
 use App\Models\Appointment;
 use Livewire\WithPagination;
+use App\Models\User;
+use Illuminate\Support\Facades\App;
 
 class IndexAppointment extends Component
 {
@@ -10,11 +12,15 @@ use WithPagination;
 public $paginationTheme="bootstrap";
 public $appointmentidBeingRemoved=null;
 protected $listeners=['deleteconfirmed'=>'deleteappointment'];
+public $searchTitle=null;
 
 public function render()
 {
-$appointments=Appointment::latest()->paginate(5);
-return view('livewire.appointment.index-appointment',['appointments'=>$appointments]);
+        $appointments=Appointment::query()
+        ->where('id','like','%'.$this->searchTitle.'%')
+        ->latest()
+        ->paginate();
+        return view('livewire.appointment.index-appointment',['appointments'=>$appointments]);
 }
 // To confirm delete an appointment
 public function confirmdeleteappointment($id)

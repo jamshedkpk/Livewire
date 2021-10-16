@@ -13,14 +13,18 @@ use WithPagination;
 public $paginationTheme="bootstrap";
 // To receive input fields value in the form of array
 public $state=[];
-
 // We want to use one modal for adding and updating a user
 public $showeditform=false;
+public $searchTitle=null;
 public $user;
+
 public function render()
 {
-$users=User::latest()->paginate(5);
-return view('livewire.user.index-user',['users'=>$users]);
+$users=User::query()
+        ->where('name','like','%'.$this->searchTitle.'%')
+        ->latest()
+        ->paginate(5);
+        return view('livewire.user.index-user',['users'=>$users]);
 }
 // show dialog box for adding new user
 public function adduser()

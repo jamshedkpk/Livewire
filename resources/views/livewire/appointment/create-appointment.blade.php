@@ -84,19 +84,17 @@ Welcome To The Appointment Section
 </div>
 </div>
 </div>
-
 <div class="row">
 <div class="col-md-12">
-<div wire:ignore class="form-group">
-<textarea data-note="@this" wire:model.defer="state.note" name="note" id="note" cols="30" rows="10" wire:model.ignore>
-</textarea>
+<div class="form-group" wire:ignore>
+<textarea data-note="@this" name="note" wire:model.defer="state.note" id="note" cols="30" rows="10"></textarea>
 </div>
 </div>
 </div>
 <br>
 <div class="row">
 <div class="col-md-6">
-<button type="submit" class="btn btn-success btn-block">
+<button type="submit" id="submit" class="btn btn-success btn-block">
 <span class="fa fa-plus-circle"></span>
 Book Appoitment
 </button>
@@ -126,7 +124,6 @@ showConfirmButton: false,
 timer: 2000
 });
 $('#saveappointment').clik(function(){
-alert('okokok');    
 });
 })
 </script>
@@ -137,13 +134,10 @@ alert('okokok');
 ClassicEditor
 .create(document.querySelector('#note'))
 .then(editor => {
-editor.model.document.on('change:data', () => {
-document.querySelector('#saveappointment').addEventListener('click', () => {
-let note = $('#note').data('note');
-eval(note).set('state.note', editor.getData());
-document.getElementById("#formappointment").reset();
-})
-})
+document.querySelector('#submit').addEventListener('click',event=>{
+let note=$('#note').data('note');
+eval(note).set('state.note',editor.getData());
+});
 })
 .catch(error => {
 console.error(error);
