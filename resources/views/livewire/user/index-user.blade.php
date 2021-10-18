@@ -66,6 +66,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Registered Date</th>
             <th colspan="2">Action</th>
           </tr>
         </thead>
@@ -80,6 +81,9 @@
             </td>
             <td>
               {{$user->email}}
+            </td>
+            <td>
+            {{$user->created_at->toFormattedDate()}}
             </td>
             <td>
               <a href="" wire:click.prevent="edit({{$user}})">
