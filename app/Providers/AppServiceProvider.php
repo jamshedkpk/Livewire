@@ -18,7 +18,7 @@ return $this->format('d-M-Y');
 });
 
 Carbon::macro('toFormattedTime',function(){
-return $this->format('h:m A');
+return $this->format('H:i A');
 });    
 
 }

@@ -1,8 +1,9 @@
 <div class="container" style="margin-top:5px;">
 <style>
-.table tr td, .table, tr th
-{
-text-align: center;    
+.table tr td,
+.table,
+tr th {
+text-align: center;
 }
 </style>
 <div class="row">
@@ -21,19 +22,19 @@ Add New
 All
 </span>
 <span class="badge badg-pill badge-info">
-{{$appointmentTotal}} 
+{{$appointmentTotal}}
 </span>
 </button>
 <button wire:click="filterStatus('Scheduled')" type="button" class="btn {{($status=='Scheduled')? 'btn-danger':'btn-default'}}">
 <span class="mr-1">Scheduled</span>
 <span class="badge badg-pill badge-warning">
-{{$appointmentScheduled}} 
+{{$appointmentScheduled}}
 </span>
 </button>
 <button wire:click="filterStatus('Closed')" type="button" class="btn {{($status=='Closed')? 'btn-danger':'btn-default'}}">
 <span class="mr-1">Closed</span>
 <span class="badge badg-pill badge-success">
-{{$appointmentClosed}}    
+{{$appointmentClosed}}
 </span>
 </button>
 </div>
@@ -97,7 +98,7 @@ Welcome To The Appointment Section
 <tr>
 <td>{{$appointment->id}}</td>
 <td>
-{{$appointment->client->name}}    
+{{$appointment->client->name}}
 </td>
 <!--To create a format for date and time we create a method
 toFormatedDate & toFormattedTime using Carbon class in app.service.provider.php-->
@@ -115,7 +116,7 @@ Closed
 @endif
 </td>
 <td>
-<a href="#">
+<a href="{{route('editappointment',$appointment)}}">
 <span class="fa fa-edit"></span>
 </a>
 </td>
@@ -135,6 +136,7 @@ Closed
 <!-- /.card-body -->
 </div>
 <!-- /.card -->
+
 <script>
 // Confirm delete appointment
 window.addEventListener('confirmdeleteappointment', event => {
