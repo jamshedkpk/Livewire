@@ -68,8 +68,13 @@ In client function inside appointments model we link client and appointment tabl
 $appointments=Appointment::With('client')
 // If someone wants to filter Closed or Scheduled appointments
 ->when($this->status,function($query,$status){
-return $query->where('status',$status);
+    return $query->where('status',$status);    
 })
+
+->when($this->searchTitle,function($query,$searchTitle){
+    return $query->where('id','like', '%'.$searchTitle.'%');    
+})
+
 ->latest()
 ->paginate(5);
 
