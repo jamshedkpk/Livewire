@@ -1,3 +1,4 @@
+
 <div class="container" style="margin-top:5px;">
 <style>
 .table tr td,
@@ -6,6 +7,7 @@ tr th {
 text-align: center;
 }
 </style>
+
 <div class="row">
 <div class="col-md-3">
 <a href="{{route('createappointment')}}">
@@ -165,4 +167,17 @@ Swal.fire(
 )
 });
 </script>
+<div wire:loading>
+<div style="    position: absolute;
+    left: 50%;
+    top: 35%;
+    display: none;
+    background: transparent url("../images/loading-big.gif");
+    z-index: 1000;
+    height: 31px;
+    width: 31px;" class="spinner-border m-5" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+</div>
+
 </div>

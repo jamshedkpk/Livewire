@@ -1,4 +1,5 @@
 <div>
+
 <style>
 .table tr th,
 .table tr td {
@@ -176,8 +177,18 @@ Welcome To The User Section
 @else
 @endif
 <div class="custom-file">
-<div>
+<div x-data="{ isUploading: false, progress: 0 }"
+     x-on:livewire-upload-start="isUploading=true"
+     x-on:livewire-upload-finish="isUploading=false,progress=0"
+     x-on:livewire-upload-error="isUploading=false"
+     x-on:livewire-upload-progress="progress=$event.detail.progress"
+>
 <input wire:model="photo" type="file" id="custom-file" class="custom-file-input @error('photo') is-invalid @enderror"> 
+<div x-show.transition="isUploading" class="progress mt-2 rounded">
+<div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width:${progress}%`">
+<span class="sr-only">40% Complete (success)</span>
+</div>
+</div>
 </div>
 
 <!-- If photo is uploaded then display the name else not-->     
