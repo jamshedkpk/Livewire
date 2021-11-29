@@ -64,7 +64,6 @@ public function render()
 /*
 Select all record of appointment with client function.
 In client function inside appointments model we link client and appointment table
-
 */
 $appointments=Appointment::With('client')
 // If someone wants to filter Closed or Scheduled appointments

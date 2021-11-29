@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/loader.css')}}">
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 <!-- For sweet alerts-->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

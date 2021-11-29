@@ -1,5 +1,5 @@
 <div>
-
+<x-loading-indicator/>
 <style>
 .table tr th,
 .table tr td {

@@ -1,5 +1,5 @@
-
 <div class="container" style="margin-top:5px;">
+<x-loading-indicator/>
 <style>
 .table tr td,
 .table,
