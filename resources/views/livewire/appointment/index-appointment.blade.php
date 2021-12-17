@@ -7,7 +7,6 @@ tr th {
 text-align: center;
 }
 </style>
-
 <div class="row">
 <div class="col-md-3">
 <a href="{{route('createappointment')}}">
@@ -17,6 +16,27 @@ Add New
 </button>
 </a>
 </div>
+<!--Start for bulk action-->
+<div class="col-md-3">
+@if($selectedRows)
+<div class="btn-group">
+<button type="button" class="btn btn-warning">Bulk Actions</button>
+<button type="button" class="btn btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+<span class="sr-only"></span>
+</button>
+<div class="dropdown-menu" role="menu">
+<a wire:click.prevent="deleteSelectedValues" class="dropdown-item" href="#">Delete Selected</a>
+<a wire:click.prevent="markAsScheduled" class="dropdown-item" href="#">Scheduled Selected</a>
+<a wire:click.prevent="markAsClosed" class="dropdown-item" href="#">Closed Selected</a>
+</div>
+</div>
+<span>Selected {{count($selectedRows)}}
+{{Str::plural('Appointment',count($selectedRows))}}
+</span>
+@endif
+</div>
+<!--End for bulk action-->
+<!-- Start of filtering appointments-->
 <div class="col-md-6 text-center">
 <div class="btn-group">
 <button wire:click="filterStatus" type="button" class="btn {{is_null($status)?'btn-danger':'btn-default'}}">
@@ -40,25 +60,7 @@ All
 </span>
 </button>
 </div>
-</div>
-<div class="col-md-3">
-<div class="input-group">
-<!-- To search on the basis of name-->
-<input wire:model="searchTitle" type="text" class="form-control float-right bg-dark text-light border:0" placeholder="Search Here....">
-<span class="input-group-append">
-<span class="input-group-text">
-<!-- To implement loading-->
-<div wire:loading>
-<div class="spinner-border text-success spinner-border-sm" role="status">
-<span class="sr-only">Loading...</span>
-</div>
-</div>
-<!-- To remove loading-->
-<div wire:loading.remove>
-<span class="fa fa-search">
-</span>
-</div>
-</div>
+<!-- End of filtering appointments-->
 </div>
 </div>
 <div class="card card-success" style="margin-top:5px;">
@@ -87,7 +89,12 @@ Welcome To The Appointment Section
 <table class="table table-striped table-hover table-bordered">
 <thead>
 <tr>
-<th>ID</th>
+<th>
+<div class="icheck-primary d-inline ml-2">
+<input wire:model="selectedPageRows" type="checkbox" value="" name="todo" id="todo">
+<label for="todo"></label>
+</div>
+</th>
 <th>Client Name</th>
 <th>Date</th>
 <th>Time</th>
@@ -98,7 +105,12 @@ Welcome To The Appointment Section
 <tbody>
 @foreach($appointments as $appointment)
 <tr>
-<td>{{$appointment->id}}</td>
+<td>
+<div class="icheck-primary d-inline ml-2">
+<input wire:model="selectedRows" type="checkbox" value="{{$appointment->id}}" name="todo2" id="{{$appointment->id}}">
+<label for="{{$appointment->id}}"></label>
+</div>
+</td>
 <td>
 {{$appointment->client->name}}
 </td>
@@ -138,6 +150,18 @@ Closed
 <!-- /.card-body -->
 </div>
 <!-- /.card -->
+<div wire:loading>
+<div style="    position: absolute;
+left: 50%;
+top: 35%;
+display: none;
+background: transparent url("../images/loading-big.gif");
+z-index: 1000;
+height: 31px;
+width: 31px;" class="spinner-border m-5" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+</div>
 
 <script>
 // Confirm delete appointment
@@ -167,17 +191,16 @@ Swal.fire(
 )
 });
 </script>
-<div wire:loading>
-<div style="    position: absolute;
-    left: 50%;
-    top: 35%;
-    display: none;
-    background: transparent url("../images/loading-big.gif");
-    z-index: 1000;
-    height: 31px;
-    width: 31px;" class="spinner-border m-5" role="status">
-<span class="sr-only">Loading...</span>
-</div>
-</div>
-
+<script>
+window.addEventListener('appointmentupdated',event=>{
+Swal.fire({
+  position: 'top-center',
+  icon: 'success',
+  iconColor:'limegreen',
+  title: 'Your appointment has been Updated',
+  showConfirmButton: false,
+  timer: 1500
+});
+});
+</script>
 </div>

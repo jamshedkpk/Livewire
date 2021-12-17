@@ -90,7 +90,7 @@ $this->dispatchBrowserEvent('hidedeletemodal');
 // Edit the user
 public function edit(User $user)
 {
-    $this->reset();
+$this->reset();
 $this->user=$user;
 $this->showeditform=true;
 // Storing fields in an array
