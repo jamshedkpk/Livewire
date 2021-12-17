@@ -68,11 +68,11 @@ In client function inside appointments model we link client and appointment tabl
 $appointments=Appointment::With('client')
 // If someone wants to filter Closed or Scheduled appointments
 ->when($this->status,function($query,$status){
-    return $query->where('status',$status);    
+return $query->where('status',$status);    
 })
 
 ->when($this->searchTitle,function($query,$searchTitle){
-    return $query->where('id','like', '%'.$searchTitle.'%');    
+return $query->where('id','like', '%'.$searchTitle.'%');    
 })
 
 ->latest()
@@ -97,5 +97,52 @@ public function deleteappointment()
 $appointment=Appointment::where(['id'=>$this->appointmentidBeingRemoved]);
 $appointment->delete();
 $this->dispatchBrowserEvent('deletedappointment');
+}
+// For select items for bulk actions
+public $selectedRows=[]; // value comes from each selected checkbox
+public $selectedPageRows=false; // values come if top checkbox is selected to select all values
+public function updatedselectedPageRows($value)
+{
+// If top checkbox is selected to select all checkboxes
+if($value)
+{
+// Then value should be equal to 
+$this->selectedRows=$this->appointment->pluck('id')->map(function($id){
+return (string) $id;
+});
+}
+else
+{
+// Clear Checkboxes
+    $this->reset(['selectedRows','selectedPageRows']);
+}
+}
+// Return appointment property as computed property
+public function getAppointmentproperty()
+{
+return Appointment::with('client')
+    ->when($this->status,function($query,$status){
+    return $query->where('status',$status);
+    })->latest()->paginate();
+}
+// To delete bulk actions for selected checkboxes
+public function deleteSelectedValues()
+{
+Appointment::whereIn('id',$this->selectedRows)->delete();
+$this->dispatchBrowserEvent('deletedappointment');
+$this->reset(['selectedRows','selectedPageRows']);
+}
+// To update bulk actions for selected checkboxes
+public function markAsScheduled()
+{
+Appointment::whereIn('id',$this->selectedRows)->update(['status'=>'Scheduled']);
+$this->dispatchBrowserEvent('appointmentupdated');
+$this->reset(['selectedRows','selectedPageRows']);
+}
+public function markAsClosed()
+{
+Appointment::whereIn('id',$this->selectedRows)->update(['status'=>'Closed']);
+$this->dispatchBrowserEvent('appointmentupdated');
+$this->reset(['selectedRows','selectedPageRows']);
 }
 }
