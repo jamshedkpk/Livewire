@@ -174,6 +174,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\BladeComponentServiceProivder::class,
+        App\Providers\FortifyServiceProvider::class,
     ],
 
     /*

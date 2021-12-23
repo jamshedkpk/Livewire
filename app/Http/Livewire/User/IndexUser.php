@@ -108,7 +108,7 @@ $this->resetPage();
 $data=Validator::make($this->state,[
 'name'=>'required',
 'email'=>'required|email|unique:users,email,'.$this->user->id,
-'password'=>'sometimes|confirmed',
+'password' => 'password' != null ?'sometimes|required|min:6': ''
 ])->validate();
 if(!empty($data['password']))
 {
