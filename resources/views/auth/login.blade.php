@@ -139,7 +139,7 @@ color: rgb(12, 97, 33);
 </style>
 <div class="container">
 <div class="card card-container">
-<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+<img id="profile-img" class="profile-img-card" src="{{asset('Assets/Images/login.png')}}" />
 <p id="profile-name" class="profile-name-card"></p>
 <form class="form-signin" action="{{route('login')}}" method="post">
 @csrf
