@@ -5,7 +5,7 @@
 body, html {
 height: 100%;
 background-repeat: no-repeat;
-background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+background-color:#3737B2;
 }
 .card-container.card {
 max-width: 350px;
@@ -161,9 +161,9 @@ color: rgb(12, 97, 33);
 <input type="checkbox" value="remember-me"> Remember me
 </label>
 </div>
-<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+<button style="background-color:#3737B2;" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
 </form><!-- /form -->
-<a href="#" class="forgot-password">
+<a href="#" class="forgot-password" style="color:#3737B2;">
 Forgot the password?
 </a>
 </div><!-- /card-container -->
