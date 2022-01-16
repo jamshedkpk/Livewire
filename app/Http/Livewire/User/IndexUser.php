@@ -122,4 +122,15 @@ $this->user->update($data);
 $this->dispatchBrowserEvent('hideupdateuser');
 return redirect()->back();
 }
+// Change role of user from Admin to User
+public function changeRole(User $user,$role)
+{
+// Validate the role
+Validator::make(['role'=>$role],[
+'role'=>'required|in:Admin,User',
+])->validate();
+
+$user->update(['role'=>$role]);
+$this->dispatchBrowserEvent('roleupdated');
+}
 }

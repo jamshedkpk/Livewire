@@ -14,6 +14,7 @@ protected $fillable = [
 'email',
 'password',
 'photo',
+'role',
 ];
 
 protected $hidden = [
@@ -24,4 +25,12 @@ protected $hidden = [
 protected $casts = [
 'email_verified_at' => 'datetime',
 ];
+
+public function isAdmin()
+{
+if($this->role=='Admin')
+{
+return true;    
+}
+}
 }

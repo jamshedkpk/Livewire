@@ -47,6 +47,8 @@ Dashboard
 </p>
 </a>
 </li>
+<!-- If user is admin-->
+@if(auth()->user()->isAdmin())
 <li class="nav-item">
 <a href="{{route('user')}}" class="nav-link {{request()->is('admin/user')?'active':''}}">
 <i class="nav-icon fas fa-users" aria-hidden="true"></i>              
@@ -55,6 +57,7 @@ Users
 </p>
 </a>
 </li>
+@endif
 <li class="nav-item">
 <a href="{{route('appointment')}}" class="nav-link {{request()->is('admin/appointment')?'active':''}}">
 <i class="nav-icon fas fa-calendar-alt"></i>

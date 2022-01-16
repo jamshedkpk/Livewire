@@ -71,6 +71,7 @@ Welcome To The User Section
 <th>Name</th>
 <th>Email</th>
 <th>Registered Date</th>
+<th>Role</th>
 <th colspan="2">Action</th>
 </tr>
 </thead>
@@ -93,6 +94,16 @@ Welcome To The User Section
 </td>
 <td>
 {{$user->created_at->toFormattedDate()}}
+</td>
+<td>
+<select class="form-control" wire:change="changeRole({{$user}},$event.target.value)">
+<option value="Admin" {{($user->role=='Admin')?'selected':''}}>
+Admin
+</option>
+<option value="User" {{($user->role=='User')?'selected':''}}>
+User
+</option>
+</select>
 </td>
 <td>
 <a href=""  wire:click.prevent="edit({{$user}})" wire:click="$emit('search',{{$user->id}})">
@@ -345,6 +356,30 @@ title: 'User is successfully Updated'
 background-color: red;
 }
 </style>
+<script>
+// Hide delete model and show sweat alert
+window.addEventListener('roleupdated', event => {
+$('#confirmdeleteuser').modal('hide');
+const Toast = Swal.mixin({
+toast: true,
+position: 'top-center',
+showConfirmButton: false,
+iconColor: 'green',
+timer: 3000,
+timerProgressBar: true,
+progressBarColor: 'green',
+didOpen: (toast) => {
+toast.addEventListener('mouseenter', Swal.stopTimer)
+toast.addEventListener('mouseleave', Swal.resumeTimer)
+}
+})
 
+Toast.fire({
+icon: 'success',
+title: 'Role Is Successfully Updated'
+});
+});
+
+</script>
 </div>
 <!--End of component-->
